@@ -11,14 +11,14 @@ import { POST_PHP, BUREST_PHP } from "./config.js";
 
 export async function doFetch(db, sql, auditText) {
   let formData = new FormData();
-  formData.append("db", db);
+  formData.append("db", db.db);
   formData.append("sql", encodeURI(sql));
   if (auditText) {
     formData.append("audit_text", auditText);
   }
   //formData.append('noenc', 'true')
 
-  let resp = await fetch(POST_PHP, {
+  let resp = await fetch(db.server + POST_PHP, {
     method: "POST",
     body: formData,
   });
@@ -64,7 +64,7 @@ export function isAllowedTo(permissions, sFunc) {
 function setSqlParams(sql, params) {}
 
 export async function writeAuditText(
-  db,
+  db, // todo -- fix callers to pass db object with .db and .server
   user_id,
   user_name,
   auditText,
@@ -89,11 +89,11 @@ export async function writeAuditText(
 
 export async function doBuRest(db, filename, func) {
   let formData = new FormData();
-  formData.append("db", db);
+  formData.append("db", db.db);
   formData.append("filename", filename);
   formData.append("func", func);
 
-  return await fetch(BUREST_PHP, {
+  return await fetch(db.server + BUREST_PHP, {
     method: "POST",
     body: formData,
   });
