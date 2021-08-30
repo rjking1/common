@@ -87,13 +87,13 @@ export async function writeAuditText(
   );
 }
 
-export async function doBuRest(db, filename, func) {
+export async function doBuRest(server, db, filename, func) {
   let formData = new FormData();
-  formData.append("db", db.db);
+  formData.append("db", db);
   formData.append("filename", filename);
   formData.append("func", func);
 
-  return await fetch(db.server + BUREST_PHP, {
+  return await fetch(server + BUREST_PHP, {
     method: "POST",
     body: formData,
   });
