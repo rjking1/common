@@ -98,3 +98,10 @@ export async function doBuRest(server, db, filename, func) {
     body: formData,
   });
 }
+
+export async function getLatestDateTimeAsISO(db) {
+  // get min of latest price and scada datetime 
+  // allowing for scada being time starting
+  const res = await doFetch(db, "select max(settlementdate) - interval 5 minute as d from DISPATCH__UNIT_SCADA");  // DISPLAY__PRICE
+  return res[0].d;
+}
