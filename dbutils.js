@@ -101,7 +101,7 @@ export async function doBuRest(server, db, filename, func, opts, tables) {
   });
 }
 
-export async function doRunpy(params) {
+export async function doRunpy(server, params) {
   let formData = new FormData();
   formData.append("params", params);
 
