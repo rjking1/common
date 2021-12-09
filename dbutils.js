@@ -87,13 +87,25 @@ export async function writeAuditText(
   );
 }
 
-export async function doBuRest(server, db, filename, func) {
+export async function doBuRest(server, db, filename, func, opts, tables) {
   let formData = new FormData();
   formData.append("db", db);
   formData.append("filename", filename);
   formData.append("func", func);
+  formData.append("opts", opts);
+  formData.append("table", tables);
 
   return await fetch(server + BUREST_PHP, {
+    method: "POST",
+    body: formData,
+  });
+}
+
+export async function doRunpy(params) {
+  let formData = new FormData();
+  formData.append("params", params);
+
+  return await fetch(server + RUNPY_PHP, {
     method: "POST",
     body: formData,
   });
