@@ -1,4 +1,4 @@
-import { POST_PHP, BUREST_PHP } from "./config.js";
+import { POST_PHP, BUREST_PHP, RUNPY_PHP } from "./config.js";
 
 // doFetchGet('https://www.artspace7.com.au/dsql/json_helper_get.php?db=art25285_rides2&sql=select%20*%20from%20bikes')
 
@@ -93,7 +93,7 @@ export async function doBuRest(server, db, filename, func, opts, tables) {
   formData.append("filename", filename);
   formData.append("func", func);
   formData.append("opts", opts);
-  formData.append("table", tables);
+  formData.append("tables", tables);
 
   return await fetch(server + BUREST_PHP, {
     method: "POST",
