@@ -1,4 +1,4 @@
-import { POST_PHP, BUREST_PHP, RUNPY_PHP } from "./config.js";
+import { POST_PHP, BUREST_PHP, RUNPY_PHP, SHELL_EXEC_PHP } from "./config.js";
 
 // doFetchGet('https://www.artspace7.com.au/dsql/json_helper_get.php?db=art25285_rides2&sql=select%20*%20from%20bikes')
 
@@ -106,6 +106,16 @@ export async function doRunpy(server, params) {
   formData.append("params", params);
 
   return await fetch(server + RUNPY_PHP, {
+    method: "POST",
+    body: formData,
+  });
+}
+
+export async function doShellExec(server, cmd) {
+  let formData = new FormData();
+  formData.append("cmd", cmd);
+
+  return await fetch(server + SHELL_EXEC_PHP, {
     method: "POST",
     body: formData,
   });
